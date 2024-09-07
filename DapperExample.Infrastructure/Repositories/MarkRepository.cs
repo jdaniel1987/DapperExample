@@ -7,7 +7,7 @@ namespace DapperExample.Infrastructure.Repositories;
 
 public class MarkRepository
 {
-    private static string _connectionString = "Server=DESKTOP-R06V6CR\\SQLEXPRESS;Database=DapperExample;Trusted_Connection=True;Trust Server Certificate=true;";
+    private static string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=DapperExample;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
     public async Task<IReadOnlyCollection<Mark>> GetMarks()
     {

@@ -1,11 +1,5 @@
+using DapperExample.Infrastructure.Data.DatabaseSeed;
 using DapperExample.Infrastructure.Repositories;
-using System.Globalization;
-
-//CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-//CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
-//CultureInfo culture = new CultureInfo("en-US");
-//CultureInfo.DefaultThreadCurrentCulture = culture;
-//CultureInfo.DefaultThreadCurrentUICulture = culture;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,5 +25,10 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+if(app.Environment.EnvironmentName != "Test")
+{
+    DatabaseCreation.CreateDatabase(builder.Configuration);
+}
 
 app.Run();
