@@ -11,12 +11,12 @@ public class MarkRepository
 
     public async Task<IReadOnlyCollection<Mark>> GetMarks()
     {
-        string sql = @"SELECT [Id]
-                              ,[Name]
-                              ,[Surname]
-                              ,[Score]
-                          FROM [Marks] 
-                          ORDER BY Surname";
+        var sql = @"SELECT [Id]
+                           ,[Name]
+                           ,[Surname]
+                           ,[Score]
+                       FROM [Marks] 
+                       ORDER BY Surname";
         using var db = new SqlConnection(_connectionString);
         var marks = await db.QueryAsync<Mark>(sql);
 
@@ -25,12 +25,12 @@ public class MarkRepository
 
     public async Task<Mark> GetMark(int id)
     {
-        string sql = @"SELECT [Id]
-                              ,[Name]
-                              ,[Surname]
-                              ,[Score]
-                          FROM [Marks] 
-                          WHERE Id = @id";
+        var sql = @"SELECT [Id]
+                           ,[Name]
+                           ,[Surname]
+                           ,[Score]
+                       FROM [Marks] 
+                       WHERE Id = @id";
         var db = new SqlConnection(_connectionString);
         var mark = await db.QueryFirstAsync<Mark>(sql, new { id });
 
@@ -39,9 +39,9 @@ public class MarkRepository
 
     public async Task<int> CreateMark(Mark mark)
     {
-        string sql = @"INSERT INTO [Marks] ([Name], [Surname], [Score])
-                            OUTPUT INSERTED.Id
-                           VALUES (@name, @surname, @mark);";
+        var sql = @"INSERT INTO [Marks] ([Name], [Surname], [Score])
+                         OUTPUT INSERTED.Id
+                    VALUES (@name, @surname, @mark);";
 
         var db = new SqlConnection(_connectionString);
         var id = await db.QuerySingleAsync<int>(sql, new
@@ -56,7 +56,7 @@ public class MarkRepository
 
     public async Task UpdateMark(Mark mark, int id)
     {
-        string sql = @"UPDATE [Marks] 
+        var sql = @"UPDATE [Marks] 
                            SET
                                 [Name] = @name, 
                                 [Surname] = @surname, 
@@ -75,8 +75,8 @@ public class MarkRepository
 
     public async Task DeleteMark(int id)
     {
-        string sql = @"DELETE FROM [Marks]       
-                           WHERE [Id] = @id";
+        var sql = @"DELETE FROM [Marks]       
+                    WHERE [Id] = @id";
         var db = new SqlConnection(_connectionString);
         await db.QueryAsync(sql, new { id });
     }
